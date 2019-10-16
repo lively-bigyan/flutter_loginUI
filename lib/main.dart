@@ -19,6 +19,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool _visiblity = true;
+  changeVisibility() {
+    setState(() {
+      _visiblity = !_visiblity;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +48,6 @@ class _MyAppState extends State<MyApp> {
                   ),
                   SizedBox(height: 28),
                   TextFormField(
-                    autofocus: true,
                     cursorColor: primaryRegular,
                     decoration: InputDecoration(
                       prefixIcon: Icon(LineIcons.user),
@@ -59,13 +65,15 @@ class _MyAppState extends State<MyApp> {
                   SizedBox(height: 20),
                   Container(
                     child: TextFormField(
-                      obscureText: true,
+                      obscureText: _visiblity,
                       cursorColor: primaryRegular,
                       decoration: InputDecoration(
                         prefixIcon: Icon(LineIcons.lock),
                         suffixIcon: IconButton(
-                          icon: Icon(LineIcons.eye),
-                          onPressed: () {},
+                          icon: Icon(_visiblity
+                              ? LineIcons.eye
+                              : LineIcons.eye_slash),
+                          onPressed: changeVisibility,
                         ),
                         labelText: 'Password',
                         border: OutlineInputBorder(

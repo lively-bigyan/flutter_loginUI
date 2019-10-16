@@ -8,6 +8,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool _visiblity = true;
+  changeVisibility() {
+    setState(() {
+      _visiblity = !_visiblity;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,13 +85,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(height: 10),
                   Container(
                     child: TextFormField(
-                      obscureText: true,
+                      obscureText: _visiblity,
                       cursorColor: primaryRegular,
                       decoration: InputDecoration(
                         prefixIcon: Icon(LineIcons.lock),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
-                          onPressed: () {},
+                          icon: Icon(_visiblity
+                              ? LineIcons.eye
+                              : LineIcons.eye_slash),
+                          onPressed: changeVisibility,
                         ),
                         labelText: 'Password',
                         border: OutlineInputBorder(
